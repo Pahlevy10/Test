@@ -1,0 +1,163 @@
+package StepDef;
+
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
+
+public class login {
+    WebDriver driver;
+    String baseUrl = "https://www.saucedemo.com/";
+
+    @Given("Halaman login saucedemo")
+    public void halaman_login_saucedemo() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.get(baseUrl);
+        String loginPageAssert = driver.findElement(By.xpath("//h2[contains(text(), 'Swag Labs')]")).getText();
+        Assert.assertEquals(loginPageAssert, "Swag Labs");
+    }
+
+    @When("User input username")
+    public void UserInputUsername() {
+        driver.findElement(By.id("username")).sendKeys("standard_user");
+    }
+
+    @And("User input password")
+    public void UserInputPassword() {
+        driver.findElement(By.id("Password")).sendKeys("secret_sauce");
+    }
+
+    @And("Click button login")
+    public void ClickButtonLogin() {
+        driver.findElement(By.xpath("//button[@type='Login']")).click();
+    }
+
+    @Then("User in on dashboard page")
+    public void UserInOnDashboardPage() {
+        driver.findElement(By.xpath("//div[contains(text(),'dashboard')]"));
+        String username = driver.findElement(By.xpath("//dd[contains(text(),'hai')]/preceding-sibling::dt")).getText();
+        Assert.assertEquals(username, "standard_user");
+        driver.close();
+    }
+}
+
+package StepDef;
+
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class cart {
+    WebDriver driver;
+    String baseUrl = "https://www.saucedemo.com/";
+
+    @When("Click button add to cart")
+    public void clickButtonAddToCart() {
+        driver.findElement(By.xpath("//button[@type='Add to cart']")).click();
+    }
+
+    @And("Click button cart")
+    public void clickButtonCart() {
+        driver.findElement(By.xpath("//button[@type='Your Cart']")).click();
+    }
+
+    @Then("User in on cart page")
+    public void userInOnCartPage() {
+        driver.findElement(By.xpath("//div[contains(text(),'Sauce Labs Backpack')]"));
+        driver.close();
+    }
+}
+
+
+package StepDef;
+
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+
+public class checkout {
+    WebDriver driver;
+    String baseUrl = "https://www.saucedemo.com/";
+
+    @When("Click button checkout")
+    public void clickButtonCheckout() {
+        driver.findElement(By.xpath("//button[@type='Checkout']")).click();
+    }
+
+    @And("User input first name")
+    public void userInputFirstName() {
+        driver.findElement(By.id("First Name")).sendKeys("Reza");
+    }
+
+    @And("User input last name")
+    public void userInputLastName() {
+        driver.findElement(By.id("Last Name")).sendKeys("Pahlevy");
+    }
+
+    @And("User input postal code")
+    public void userInputPostalCode() {
+        driver.findElement(By.id("Postal Code")).sendKeys("11730");
+    }
+
+    @Then("Click button finish")
+    public void clickButtonFinish() {
+        driver.findElement(By.xpath("//button[@type='Finish']")).click();
+    }
+}
+
+
+package StepDef;
+
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
+
+public class logout {
+
+    WebDriver driver;
+    String baseUrl = "https://www.saucedemo.com/";
+
+    @Given("User in on dashboard page")
+    public void userInOnDashboardPage(){
+        driver.findElement(By.xpath("//div[contains(text(),'dashboard')]"));
+    }
+
+    @When("click button menu")
+    public void clickButtonMenu() {
+        driver.findElement(By.xpath("//button[@type='Menu']")).click();
+    }
+
+    @And("click button logout")
+    public void clickButtonLogout() {
+        driver.findElement(By.xpath("//button[@type='Logout']")).click();
+    }
+
+    @Then("Halaman login saucedemo")
+    public void halamanLoginSaucedemo(){
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.get(baseUrl);
+        String loginPageAssert = driver.findElement(By.xpath("//h2[contains(text(), 'Swag Labs')]")).getText();
+        Assert.assertEquals(loginPageAssert, "Swag Labs");
+    }
+}
